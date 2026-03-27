@@ -1,0 +1,334 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="c_HHYmYafvwErZ1rR1YXQdP4FZn_Uj6MdSWQgmpOUQA" />
+<title>Deva Scripts</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+background:#0f172a;
+color:white;
+scroll-behavior:smooth;
+}
+
+/* HERO */
+.hero{
+padding:120px 20px;
+text-align:center;
+background:linear-gradient(135deg,#6366f1,#ec4899,#22d3ee);
+animation:fadeDown 1s ease;
+}
+.hero h1{font-size:60px;font-weight:900}
+
+/* ANIMATIONS */
+@keyframes fadeUp{
+from{opacity:0; transform:translateY(40px);}
+to{opacity:1; transform:translateY(0);}
+}
+@keyframes fadeDown{
+from{opacity:0; transform:translateY(-40px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+.fade{
+opacity:0;
+transform:translateY(40px);
+transition:all 0.8s ease;
+}
+.show{
+opacity:1;
+transform:translateY(0);
+}
+
+/* SECTION */
+section{padding:60px 20px}
+
+/* FLEX */
+.flex{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px;
+}
+
+/* CARD */
+.card{
+width:300px;
+height:200px;
+border-radius:20px;
+background:linear-gradient(135deg,#1e293b,#334155);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px;
+font-weight:600;
+transition:0.3s;
+}
+.card:hover{
+transform:scale(1.08);
+background:linear-gradient(135deg,#6366f1,#ec4899);
+}
+
+/* REVIEW */
+.review{
+width:280px;
+padding:20px;
+background:#1e293b;
+border-radius:15px;
+}
+
+/* FORM */
+form{
+max-width:500px;
+margin:auto;
+}
+
+input,select,textarea{
+width:100%;
+padding:14px;
+margin:10px 0;
+border:none;
+border-radius:10px;
+}
+
+/* BUTTON */
+button{
+width:100%;
+padding:16px;
+background:linear-gradient(135deg,#ec4899,#6366f1);
+border:none;
+color:white;
+border-radius:10px;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
+button:hover{
+transform:scale(1.05);
+}
+
+/* PRICE */
+#price{
+color:#22d3ee;
+font-size:20px;
+}
+
+/* SUCCESS */
+#successPage{
+display:none;
+text-align:center;
+padding:80px 20px;
+animation:fadeUp 1s ease;
+}
+
+.id{
+font-size:28px;
+color:#22d3ee;
+font-weight:bold;
+}
+
+/* STATUS */
+.statusBox{
+margin-top:20px;
+background:#1e293b;
+padding:20px;
+border-radius:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="mainPage">
+
+<div class="hero">
+<h1>Deva Scripts 🚀</h1>
+<p>Premium Notes, Projects & Assignments</p>
+</div>
+
+<section class="fade" style="text-align:center">
+<h2>Why Choose Me?</h2>
+<p>✔ Fast Delivery | ✔ Clean Work | ✔ High Marks</p>
+</section>
+
+<section class="fade">
+<h2 style="text-align:center">My Work</h2>
+<div class="flex">
+<div class="card">Science Project</div>
+<div class="card">Math Notes</div>
+<div class="card">AI Assignment</div>
+</div>
+</section>
+
+<section class="fade" style="background:#1e293b;text-align:center">
+<h2>Reviews ⭐</h2>
+<div class="flex">
+<div class="review">⭐⭐⭐⭐⭐<p>Very fast service</p></div>
+<div class="review">⭐⭐⭐⭐⭐<p>Got 95%</p></div>
+<div class="review">⭐⭐⭐⭐⭐<p>Best work 🔥</p></div>
+</div>
+</section>
+
+<section class="fade" style="text-align:center">
+<h2>Place Order</h2>
+
+<form onsubmit="submitOrder(event)">
+
+<input id="name" placeholder="Full Name" required>
+<input id="phone" placeholder="Phone Number" required>
+<input id="email" placeholder="Email Address" required>
+<textarea id="address" placeholder="Address" required></textarea>
+
+<input id="subject" placeholder="Class/Subject" required>
+
+<select id="type" onchange="calcPrice()" required>
+<option value="">Paper Count Way</option>
+<option value="single">Single Side</option>
+<option value="double">Both Sides</option>
+</select>
+
+<input id="pages" type="number" placeholder="Pages" oninput="calcPrice()" required>
+
+<p id="price"></p>
+
+<textarea id="details" placeholder="Details / Deadline"></textarea>
+
+<button type="submit">Submit Order</button>
+
+</form>
+</section>
+
+</div>
+
+<!-- SUCCESS PAGE -->
+<div id="successPage">
+
+<h2>🎉 Order Submitted</h2>
+<p>Your Tracking ID:</p>
+<p class="id" id="orderId"></p>
+
+<h3>💳 Complete Your Payment</h3>
+<p>Total Amount:</p>
+<p id="finalPrice" style="font-size:22px;color:#22d3ee;"></p>
+
+<p>Pay using UPI:</p>
+<p style="font-size:18px;">devagoyal@upi</p>
+
+<img src="https://via.placeholder.com/200" width="200">
+
+<p style="color:#facc15;">
+⚠️ Order will be confirmed only after payment
+</p>
+
+<button onclick="sendWhatsApp()">
+📲 Send Payment Screenshot on WhatsApp
+</button>
+
+<h3 style="margin-top:40px;">Check Status</h3>
+
+<input id="trackInput" placeholder="Enter Order ID">
+<button onclick="checkStatus()">Check Status</button>
+
+<div id="statusBox" class="statusBox"></div>
+
+</div>
+
+<script>
+
+let orders={};
+let lastOrder={};
+
+// SCROLL ANIMATION
+let elements=document.querySelectorAll(".fade");
+
+window.addEventListener("scroll",()=>{
+elements.forEach(el=>{
+let pos=el.getBoundingClientRect().top;
+if(pos<window.innerHeight-100){
+el.classList.add("show");
+}
+});
+});
+
+// PRICE
+function calcPrice(){
+let pages=document.getElementById("pages").value;
+let type=document.getElementById("type").value;
+
+if(pages && type){
+let price = (type==="single") ? pages*3 : pages*6;
+document.getElementById("price").innerText="Estimated Price: ₹"+price;
+}
+}
+
+// SUBMIT
+function submitOrder(e){
+e.preventDefault();
+
+let id="DS"+Math.floor(Math.random()*1000000);
+
+let pages=document.getElementById("pages").value;
+let type=document.getElementById("type").value;
+let price = (type==="single") ? pages*3 : pages*6;
+
+let data={
+name:document.getElementById("name").value,
+phone:document.getElementById("phone").value,
+email:document.getElementById("email").value,
+pages:pages,
+type:type,
+status:"Processing"
+};
+
+orders[id]=data;
+lastOrder={id,...data,price};
+
+document.getElementById("mainPage").style.display="none";
+document.getElementById("successPage").style.display="block";
+
+document.getElementById("orderId").innerText=id;
+document.getElementById("finalPrice").innerText="₹"+price;
+}
+
+// WHATSAPP
+function sendWhatsApp(){
+let msg = `Hello Deva Scripts,%0A
+I have completed payment.%0A
+Order ID: ${lastOrder.id}%0A
+Name: ${lastOrder.name}%0A
+Pages: ${lastOrder.pages}%0A
+Type: ${lastOrder.type}%0A
+Amount Paid: ₹${lastOrder.price}`;
+
+let phone="919876543210";
+window.open(`https://wa.me/${phone}?text=${msg}`,"_blank");
+}
+
+// TRACK
+function checkStatus(){
+let id=document.getElementById("trackInput").value;
+
+if(orders[id]){
+let d=orders[id];
+document.getElementById("statusBox").innerHTML=
+`Name: ${d.name}<br>
+Phone: ${d.phone}<br>
+Pages: ${d.pages}<br>
+Type: ${d.type}<br>
+Status: <b>${d.status}</b>`;
+}else{
+document.getElementById("statusBox").innerHTML="❌ Not Found";
+}
+}
+
+</script>
+
+</body>
+</html>
