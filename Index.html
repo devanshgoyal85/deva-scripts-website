@@ -295,6 +295,10 @@ status:"Processing"
 
 orders[id]=data;
 lastOrder={id,...data,price};
+fetch("https://script.google.com/macros/s/AKfycbx-pM8NrdCvBEuWe7PLCccOvnFyeD-3bVa6SBLwHEL77JPTBC6qRvF4KCa1s-r5HoKaAg/exec", {
+  method: "POST",
+  body: JSON.stringify(lastOrder)
+});
 
 document.getElementById("mainPage").style.display="none";
 document.getElementById("successPage").style.display="block";
